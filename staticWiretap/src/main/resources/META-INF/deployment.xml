@@ -1,0 +1,10 @@
+<jbossesb-deployment>
+    <depends>jboss.esb.datastream.destination:service=Queue,name=WiretapChannelQueue</depends>
+    <depends>jboss.esb.datastream.destination:service=Queue,name=WiretapChannelQueue_reply</depends>
+    
+    <depends>jboss.esb.datastream.destination:service=Queue,name=LoggingQueue</depends>
+    <depends>jboss.esb.datastream.destination:service=Queue,name=LoggingQueue_reply</depends>
+    
+    <depends>jboss.esb.datastream.destination:service=Queue,name=OtherLoggingQueue</depends>
+    <depends>jboss.esb.datastream.destination:service=Queue,name=OtherLoggingQueue_reply</depends>
+</jbossesb-deployment>

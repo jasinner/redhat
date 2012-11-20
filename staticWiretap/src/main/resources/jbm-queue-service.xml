@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+	<mbean code="org.jboss.jms.server.destination.QueueService"
+		name="jboss.esb.datastream.destination:service=Queue,name=WiretapChannelQueue"
+		xmbean-dd="xmdesc/Queue-xmbean.xml">
+		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
+		</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+	</mbean>
+	<mbean code="org.jboss.jms.server.destination.QueueService"
+		name="jboss.esb.datastream.destination:service=Queue,name=WiretapChannelQueue_reply"
+		xmbean-dd="xmdesc/Queue-xmbean.xml">
+		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
+		</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+	</mbean>
+
+	<mbean code="org.jboss.jms.server.destination.QueueService"
+		name="jboss.esb.datastream.destination:service=Queue,name=LoggingQueue"
+		xmbean-dd="xmdesc/Queue-xmbean.xml">
+		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
+		</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+	</mbean>
+	<mbean code="org.jboss.jms.server.destination.QueueService"
+		name="jboss.esb.datastream.destination:service=Queue,name=LoggingQueue_reply"
+		xmbean-dd="xmdesc/Queue-xmbean.xml">
+		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
+		</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+	</mbean>
+	<mbean code="org.jboss.jms.server.destination.QueueService"
+		name="jboss.esb.datastream.destination:service=Queue,name=OtherLoggingQueue"
+		xmbean-dd="xmdesc/Queue-xmbean.xml">
+		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
+		</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+	</mbean>
+	<mbean code="org.jboss.jms.server.destination.QueueService"
+		name="jboss.esb.datastream.destination:service=Queue,name=OtherLoggingQueue_reply"
+		xmbean-dd="xmdesc/Queue-xmbean.xml">
+		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
+		</depends>
+		<depends>jboss.messaging:service=PostOffice</depends>
+	</mbean>
+</server>

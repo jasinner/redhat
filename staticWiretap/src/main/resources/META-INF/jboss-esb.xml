@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!-- 
+To the extent possible under law, Red Hat, Inc. has dedicated all copyright to this software to the public domain worldwide, 
+pursuant to the CC0 Public Domain Dedication. This software is distributed without any warranty. 
+See http://creativecommons.org/publicdomain/zero/1.0/.
+ -->
+<jbossesb parameterReloadSecs="5"
+	xmlns="http://anonsvn.labs.jboss.com/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.3.0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://anonsvn.labs.jboss.com/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.3.0.xsd http://anonsvn.jboss.org/repos/labs/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.3.0.xsd">
+	<providers>
+		<jbr-provider name="jbrProvider" protocol="http">
+			<property name="synchronous" value="false" />
+			<jbr-bus busid="jbrWiretapGW" port="20082">
+				<property name="synchronous" value="false" />
+				<property name="asyncResponse" value="/successfulAsyncResponse.json" />
+			</jbr-bus>
+		</jbr-provider>
+		<jms-provider connection-factory="ConnectionFactory"
+			name="jmsProvider">
+			<jms-bus busid="jmsWiretapChannel">
+				<jms-message-filter dest-name="WiretapChannelQueue"
+					dest-type="QUEUE" />
+			</jms-bus>
+			<jms-bus busid="jmsLoggingChannel">
+				<jms-message-filter dest-name="LoggingQueue"
+					dest-type="QUEUE" />
+			</jms-bus>
+			<jms-bus busid="jmsOtherLoggingChannel">
+				<jms-message-filter dest-name="OtherLoggingQueue"
+					dest-type="QUEUE" />
+			</jms-bus>
+		</jms-provider>
+	</providers>
+	<services>
+		<service category="mycat"
+			description="receive raw data from front end systems, save into interaction store, do real time data analysis"
+			invmScope="NONE" name="wiretapService">
+			<listeners>
+				<jbr-listener busidref="jbrWiretapGW" is-gateway="true"
+					name="jbrListener">
+					<property name="synchronous" value="false" />
+				</jbr-listener>
+				<jms-listener busidref="jmsWiretapChannel" is-gateway="false"
+					name="jmsWiretapListener" />
+			</listeners>
+			<actions mep="OneWay">
+				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="myLogger0">
+					<property name="message" value="In Wiretap Service" />
+					<property name="printfull" value="false" />
+				</action>
+				<action class="org.jboss.soa.esb.actions.StaticWiretap" name="datastreamServiceStaticRouter"
+					process="process">
+					<property name="destinations">
+						<route-to destination-name="LoggingService"
+							service-category="mycat" service-name="LoggingService" />
+						<route-to destination-name="OtherLoggingService"
+							service-category="mycat" service-name="OtherLoggingService" />
+					</property>
+				</action>
+			</actions>
+		</service>
+		<service category="mycat" description="log extra info about message"
+			invmScope="NONE" name="LoggingService">
+			<listeners>
+				<jms-listener busidref="jmsLoggingChannel" name="loggingListener" />
+			</listeners>
+			<actions mep="OneWay">
+				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="myLogger1">
+					<property name="message" value="In Logging Service" />
+					<property name="printfull" value="false" />
+				</action>
+			</actions>
+		</service>
+		<service category="mycat" description="log even more info about message"
+			invmScope="NONE" name="OtherLoggingService">
+			<listeners>
+				<jms-listener busidref="jmsOtherLoggingChannel" name="otherLoggingListener" />
+			</listeners>
+			<actions mep="OneWay">
+				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="myLogger2">
+					<property name="message" value="In Other Logging Service" />
+					<property name="printfull" value="false" />
+				</action>
+			</actions>
+		</service>
+	</services>
+</jbossesb>
