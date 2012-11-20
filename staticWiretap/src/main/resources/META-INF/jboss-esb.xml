@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
-<!-- 
-To the extent possible under law, Red Hat, Inc. has dedicated all copyright to this software to the public domain worldwide, 
-pursuant to the CC0 Public Domain Dedication. This software is distributed without any warranty. 
-See http://creativecommons.org/publicdomain/zero/1.0/.
- -->
+<!-- To the extent possible under law, Red Hat, Inc. has dedicated all copyright 
+	to this software to the public domain worldwide, pursuant to the CC0 Public 
+	Domain Dedication. This software is distributed without any warranty. See 
+	http://creativecommons.org/publicdomain/zero/1.0/. -->
 <jbossesb parameterReloadSecs="5"
 	xmlns="http://anonsvn.labs.jboss.com/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.3.0.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -28,6 +27,14 @@ See http://creativecommons.org/publicdomain/zero/1.0/.
 			</jms-bus>
 			<jms-bus busid="jmsOtherLoggingChannel">
 				<jms-message-filter dest-name="OtherLoggingQueue"
+					dest-type="QUEUE" />
+			</jms-bus>
+			<jms-bus busid="jmsLoggingChannel_GW">
+				<jms-message-filter dest-name="LoggingQueue_GW"
+					dest-type="QUEUE" />
+			</jms-bus>
+			<jms-bus busid="jmsOtherLoggingChannel_GW">
+				<jms-message-filter dest-name="OtherLoggingQueue_GW"
 					dest-type="QUEUE" />
 			</jms-bus>
 		</jms-provider>
@@ -63,6 +70,7 @@ See http://creativecommons.org/publicdomain/zero/1.0/.
 		<service category="mycat" description="log extra info about message"
 			invmScope="NONE" name="LoggingService">
 			<listeners>
+			    <jms-listener busidref="jmsLoggingChannel_GW" name="loggingListenerGW" is-gateway="true"/>
 				<jms-listener busidref="jmsLoggingChannel" name="loggingListener" />
 			</listeners>
 			<actions mep="OneWay">
@@ -75,6 +83,7 @@ See http://creativecommons.org/publicdomain/zero/1.0/.
 		<service category="mycat" description="log even more info about message"
 			invmScope="NONE" name="OtherLoggingService">
 			<listeners>
+			<jms-listener busidref="jmsOtherLoggingChannel_GW" name="otherLoggingListenerGW" is-gateway="true" />
 				<jms-listener busidref="jmsOtherLoggingChannel" name="otherLoggingListener" />
 			</listeners>
 			<actions mep="OneWay">
