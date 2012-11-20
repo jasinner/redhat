@@ -6,6 +6,7 @@
 		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
 		</depends>
 		<depends>jboss.messaging:service=PostOffice</depends>
+		<attribute name="Clustered">true</attribute>
 	</mbean>
 	<mbean code="org.jboss.jms.server.destination.QueueService"
 		name="jboss.esb.datastream.destination:service=Queue,name=WiretapChannelQueue_reply"
@@ -13,6 +14,7 @@
 		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
 		</depends>
 		<depends>jboss.messaging:service=PostOffice</depends>
+		<attribute name="Clustered">true</attribute>
 	</mbean>
 
 	<mbean code="org.jboss.jms.server.destination.QueueService"
@@ -21,6 +23,7 @@
 		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
 		</depends>
 		<depends>jboss.messaging:service=PostOffice</depends>
+		<attribute name="Clustered">true</attribute>
 	</mbean>
 		<mbean code="org.jboss.jms.server.destination.QueueService"
 		name="jboss.esb.datastream.destination:service=Queue,name=LoggingQueue_GW"
@@ -28,6 +31,7 @@
 		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
 		</depends>
 		<depends>jboss.messaging:service=PostOffice</depends>
+		<attribute name="Clustered">true</attribute>
 	</mbean>
 	<mbean code="org.jboss.jms.server.destination.QueueService"
 		name="jboss.esb.datastream.destination:service=Queue,name=LoggingQueue_reply"
@@ -35,6 +39,7 @@
 		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
 		</depends>
 		<depends>jboss.messaging:service=PostOffice</depends>
+		<attribute name="Clustered">true</attribute>
 	</mbean>
 	<mbean code="org.jboss.jms.server.destination.QueueService"
 		name="jboss.esb.datastream.destination:service=Queue,name=OtherLoggingQueue"
@@ -42,6 +47,7 @@
 		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
 		</depends>
 		<depends>jboss.messaging:service=PostOffice</depends>
+		<attribute name="Clustered">true</attribute>
 	</mbean>
 		<mbean code="org.jboss.jms.server.destination.QueueService"
 		name="jboss.esb.datastream.destination:service=Queue,name=OtherLoggingQueue_GW"
@@ -49,6 +55,7 @@
 		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
 		</depends>
 		<depends>jboss.messaging:service=PostOffice</depends>
+		<attribute name="Clustered">true</attribute>
 	</mbean>
 	<mbean code="org.jboss.jms.server.destination.QueueService"
 		name="jboss.esb.datastream.destination:service=Queue,name=OtherLoggingQueue_reply"
@@ -56,5 +63,6 @@
 		<depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer
 		</depends>
 		<depends>jboss.messaging:service=PostOffice</depends>
+		<attribute name="Clustered">true</attribute>
 	</mbean>
 </server>
