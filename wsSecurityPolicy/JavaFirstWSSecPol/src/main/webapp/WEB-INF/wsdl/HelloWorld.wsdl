@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="HelloWorldService" targetNamespace="http://webservices.example.gss.redhat.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://webservices.example.gss.redhat.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema elementFormDefault="unqualified" targetNamespace="http://webservices.example.gss.redhat.com/" version="1.0" xmlns:tns="http://webservices.example.gss.redhat.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="sayHello" type="tns:sayHello"/>
+<xs:element name="sayHelloResponse" type="tns:sayHelloResponse"/>
+<xs:complexType name="sayHello">
+<xs:sequence>
+<xs:element minOccurs="0" name="arg0" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="sayHelloResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="sayHelloResponse">
+    <wsdl:part element="tns:sayHelloResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sayHello">
+    <wsdl:part element="tns:sayHello" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="HelloWorld">
+    <wsdl:operation name="sayHello">
+      <wsdl:input message="tns:sayHello" name="sayHello">
+    </wsdl:input>
+      <wsdl:output message="tns:sayHelloResponse" name="sayHelloResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HelloWorldServiceSoapBinding" type="tns:HelloWorld">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:PolicyReference URI="#ConsentServiceSoapBindingBindingPolicy"/>
+    <wsdl:operation name="sayHello">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sayHello">
+        <soap:body use="literal"/>
+    <wsp:PolicyReference URI="#getReleaseConsentBindingOpInputPolicy"/>
+      </wsdl:input>
+      <wsdl:output name="sayHelloResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HelloWorldService">
+    <wsdl:port binding="tns:HelloWorldServiceSoapBinding" name="HelloWorldPort">
+      <soap:address location="http://localhost:8080/JavaFirstWSSecPol/HelloWorld"/>
+    </wsdl:port>
+  </wsdl:service>
+    <wsp:Policy wsu:Id="ConsentServiceSoapBindingBindingPolicy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsrmp="http://docs.oasis-open.org/ws-rx/wsrmp/200702" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+	<wsp:ExactlyOne>
+		<wsp:All>
+			<sp:AsymmetricBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+				<wsp:Policy>
+					<sp:InitiatorToken>
+						<wsp:Policy>
+							<sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+								<wsp:Policy>
+									<sp:WssX509V3Token10/>
+								</wsp:Policy>
+							</sp:X509Token>
+						</wsp:Policy>
+					</sp:InitiatorToken>
+					<sp:RecipientToken>
+						<wsp:Policy>
+							<sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Always">
+								<wsp:Policy>
+									<sp:WssX509V3Token10/>
+								</wsp:Policy>
+							</sp:X509Token>
+						</wsp:Policy>
+					</sp:RecipientToken>
+					<sp:AlgorithmSuite>
+						<wsp:Policy>
+							<sp:Basic256/>
+						</wsp:Policy>
+					</sp:AlgorithmSuite>
+					<sp:Layout>
+						<wsp:Policy>
+							<sp:Strict/>
+						</wsp:Policy>
+					</sp:Layout>
+					<sp:OnlySignEntireHeadersAndBody/>
+				</wsp:Policy>
+			</sp:AsymmetricBinding>
+			<sp:Wss10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+				<wsp:Policy>
+					<sp:MustSupportRefEmbeddedToken/>
+				</wsp:Policy>
+			</sp:Wss10>
+		</wsp:All>
+	</wsp:ExactlyOne>
+</wsp:Policy>
+    <wsp:Policy wsu:Id="getReleaseConsentBindingOpInputPolicy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsrmp="http://docs.oasis-open.org/ws-rx/wsrmp/200702" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+
+	<wsp:ExactlyOne>
+		<wsp:All>
+			<sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+				<sp:Body/>
+				<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+			</sp:SignedParts>
+		</wsp:All>
+	</wsp:ExactlyOne>
+</wsp:Policy>
+</wsdl:definitions>
