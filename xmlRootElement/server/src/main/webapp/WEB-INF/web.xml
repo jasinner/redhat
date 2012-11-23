@@ -10,12 +10,12 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-    <display-name>HelloWorld</display-name>
-    <servlet-name>HelloWorld</servlet-name>
-    <servlet-class>com.redhat.gss.example.webservices.HelloWorldImpl</servlet-class>
+    <display-name>Service</display-name>
+    <servlet-name>Service</servlet-name>
+    <servlet-class>server.ws.test.com.entity.ServiceImpl</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>HelloWorld</servlet-name>
-    <url-pattern>/HelloWorld</url-pattern>
+    <servlet-name>Service</servlet-name>
+    <url-pattern>/Service</url-pattern>
   </servlet-mapping>
 </web-app>
