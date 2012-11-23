@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.redhat.gss.example.webservice</groupId>
+	<artifactId>xmlRootElement</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<properties>
+		<cxf.version>2.4.6-redhat-1</cxf.version>
+	</properties>
+
+	<packaging>war</packaging>
+
+	<!-- Needed by maven-jaxws-tools-plugin -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>JBOSS</id>
+			<name>JBoss Repository</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<finalName>xmlRootElement</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<debug>true</debug>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<!-- JBoss AS plugin to deploy war -->
+			<plugin>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<version>7.1.1.Final</version>
+			</plugin>
+			<!-- https://community.jboss.org/wiki/JBossWS-Wsconsume#Maven_Plugin -->
+			<plugin>
+				<groupId>org.jboss.ws.plugins</groupId>
+				<artifactId>maven-jaxws-tools-plugin</artifactId>
+				<version>1.1.0.GA</version>
+				<configuration>
+					<wsdls>
+						<wsdl>${basedir}/src/main/webapp/WEB-INF/wsdl/TestWS.wsdl</wsdl>
+					</wsdls>
+					<verbose>true</verbose>
+					<sourceDirectory>src/main/java</sourceDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>wsconsume</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Define the version of JBoss' Java EE 6 APIs we want to use -->
+			<!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill 
+				of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
+				of artifacts. We use this here so that we always get the correct versions 
+				of artifacts. Here we use the jboss-javaee-6.0 stack (you can read this as 
+				the JBoss stack of the Java EE 6 APIs). You can actually use this stack with 
+				any version of JBoss AS that implements Java EE 6, not just JBoss AS 7! -->
+			<dependency>
+				<groupId>org.jboss.spec</groupId>
+				<artifactId>jboss-javaee-6.0</artifactId>
+				<version>3.0.0.Final-redhat-1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.jboss.ws</groupId>
+			<artifactId>jbossws-api</artifactId>
+			<version>1.0.0.GA-redhat-1</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+		<!-- Needed by maven-jaxws-tools-plugin -->
+		<dependency>
+		    <groupId>org.jboss.ws.cxf</groupId>
+		    <artifactId>jbossws-cxf-client</artifactId>
+		    <version>4.0.4.GA-redhat-1</version>
+		    <scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+
+
+</project>
