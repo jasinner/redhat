@@ -1,0 +1,8 @@
+<webservices
+  xmlns="http://www.jboss.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  version="1.0"
+  xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss_webservices_1_2.xsd">
+  <config-name>Custom WS-Security Endpoint</config-name>
+  <config-file>WEB-INF/jbossws-jaxws-config.xml</config-file>
+</webservices>
