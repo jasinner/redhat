@@ -13,7 +13,7 @@ import org.jboss.ws.api.annotation.EndpointConfig;
 @EndpointConfig(configFile = "WEB-INF/jaxws-endpoint-config.xml", configName = "Custom WS-Security Endpoint")
 @InInterceptors(interceptors = {
       "org.jboss.wsf.stack.cxf.security.authentication.SubjectCreatingPolicyInterceptor",
-      "com.redhat.gss.wsse.policy.jaas.POJOEndpointAuthorizationInterceptor"}
+      "com.redhat.gss.wss.policy.jaas.POJOEndpointAuthorizationInterceptor"}
 )
 public class SecureServiceImpl implements SecureService {
 

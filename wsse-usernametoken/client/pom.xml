@@ -59,21 +59,6 @@
 			<groupId>org.jboss.ws.cxf</groupId>
 			<artifactId>jbossws-cxf-client</artifactId>
 			<version>4.0.4.GA-redhat-1</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>apache-scout</groupId>
-					<artifactId>scout</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<!-- Needed by maven-jaxws-tools-plugin -->
-		<dependency>
-			<groupId>org.jboss.ws.cxf</groupId>
-			<artifactId>jbossws-cxf-client</artifactId>
-			<version>4.0.4.GA-redhat-1</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
@@ -130,7 +115,14 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.redhat.gss.wss.SecureServiceClient</mainClass>
+				</configuration>
+			</plugin>
 		</plugins>
-	</build>
+</build>
 
 </project>

@@ -1,4 +1,4 @@
-package com.redhat.gss.wsse.policy.jaas;
+package com.redhat.gss.wss.policy.jaas;
 
 import java.util.HashMap;
 import java.util.Map;
