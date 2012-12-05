@@ -11,7 +11,7 @@
 		<jbossesb.version>5.3</jbossesb.version>
 		<jbossesb.profile>default</jbossesb.profile>
 		<jbossesb.lib>${jbossesb.home}/server/${jbossesb.profile}/</jbossesb.lib>
-		<jbossesb.deploy>${jbossesb.home}/server/${jbossesb.profile}/deploy</jbossesb.deploy>
+		<jbossesb.deploy>deploy</jbossesb.deploy>
 	</properties>
 
 
@@ -36,121 +36,43 @@
 
 	</dependencies>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jboss-packaging-maven-plugin</artifactId>
+				<version>2.1.1</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<forkMode>none</forkMode>
+					<argLine>-enableassertions</argLine>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jboss-maven-plugin</artifactId>
+				<version>1.4.1</version>
 
-	<profiles>
-		<profile>
-			<id>development</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<configuration>
-							<source>1.6</source>
-							<target>1.6</target>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>jboss-packaging-maven-plugin</artifactId>
-						<version>2.1.1</version>
-						<extensions>true</extensions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+				<configuration>
+					<jbossHome>${jbossesb.home}</jbossHome>
+					<serverName>${jbossesb.profile}</serverName>
+					<fileName>${project.build.directory}/${project.build.finalName}.esb</fileName>
+				</configuration>
 
-		<profile>
-			<id>integration</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<configuration>
-							<source>1.6</source>
-							<target>1.6</target>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>jboss-packaging-maven-plugin</artifactId>
-						<version>2.1.1</version>
-						<extensions>true</extensions>
-					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>failsafe-maven-plugin</artifactId>
-						<version>2.4.3-alpha-1</version>
-						<executions>
-							<execution>
-								<goals>
-									<goal>integration-test</goal>
-								</goals>
-								<configuration>
-									<forkMode>never</forkMode>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.5</version>
-						<configuration>
-							<forkMode>none</forkMode>
-							<argLine>-enableassertions</argLine>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>jboss-maven-plugin</artifactId>
-						<version>1.4.1</version>
-						<executions>
-							<execution>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>hard-deploy</goal>
-								</goals>
-								<configuration>
-									<jbossHome>${jbossesb.home}</jbossHome>
-									<serverName>${jbossesb.profile}</serverName>
-									<deploySubDir>${jbossesb.deploy}</deploySubDir>
-									<fileName>${project.build.directory}/${project.build.finalName}.esb</fileName>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>rpm-maven-plugin</artifactId>
-						<version>2.0.1</version>
-						<extensions>true</extensions>
-						<executions>
-							<execution>
-								<goals>
-									<goal>attached-rpm</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<group>Application/Collectors</group>
-							<copyright>To.be.completed</copyright>
-							<distribution>RPM TEST 2011</distribution>
-							<mappings>
-								<mapping>
-									<directory>${jbossesb.deploy}</directory>
-									<artifact />
-								</mapping>
-							</mappings>
-							<prefix>/opt</prefix>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
+			</plugin>
+		</plugins>
+	</build>
 </project>
