@@ -36,12 +36,12 @@
 			description="receive raw data from front end systems, save into interaction store, do real time data analysis"
 			invmScope="NONE" name="wiretapService">
 			<listeners>
-				<jbr-listener busidref="jbrWiretapGW" is-gateway="true"
+				<jbr-listener busidref="jbrWiretapGW" is-gateway="true" maxThreads="4"
 					name="jbrListener">
 					<property name="synchronous" value="false" />
 				</jbr-listener>
 				<jms-listener busidref="jmsWiretapChannel" is-gateway="false"
-					name="jmsWiretapListener" />
+					name="jmsWiretapListener" maxThreads="4"/>
 			</listeners>
 			<actions mep="OneWay">
 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="myLogger0">
@@ -62,7 +62,7 @@
 		<service category="mycat" description="log extra info about message"
 			invmScope="NONE" name="LoggingService">
 			<listeners>
-				<jms-listener busidref="jmsLoggingChannel" name="loggingListener" />
+				<jms-listener busidref="jmsLoggingChannel" name="loggingListener" maxThreads="2"/>
 			</listeners>
 			<actions mep="OneWay">
 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="myLogger1">
@@ -74,7 +74,7 @@
 		<service category="mycat" description="log even more info about message"
 			invmScope="NONE" name="OtherLoggingService">
 			<listeners>
-				<jms-listener busidref="jmsOtherLoggingChannel" name="otherLoggingListener" />
+				<jms-listener busidref="jmsOtherLoggingChannel" name="otherLoggingListener" maxThreads="2"/>
 			</listeners>
 			<actions mep="OneWay">
 				<action class="org.jboss.soa.esb.actions.SystemPrintln" name="myLogger2">
