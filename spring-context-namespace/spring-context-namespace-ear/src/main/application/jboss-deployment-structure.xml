@@ -1,0 +1,25 @@
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+	<deployment>
+		<dependencies>
+			<module name="org.springframework.spring.core">
+				<imports>
+					<include path="META-INF**" />
+					<include path="org**" />
+				</imports>
+			</module>
+			<dependencies>
+				<module name="org.springframework.spring.context">
+					<imports>
+						<include path="META-INF**" />
+						<include path="org**" />
+					</imports>
+				</module>
+				<dependencies>
+					<module name="org.springframework.spring.web">
+						<imports>
+							<include path="META-INF**" />
+							<include path="org**" />
+						</imports>
+					</module>
+				</dependencies>
+</jboss-deployment-structure>
