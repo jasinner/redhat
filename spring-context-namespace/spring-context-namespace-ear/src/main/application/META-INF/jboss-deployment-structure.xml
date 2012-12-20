@@ -1,0 +1,22 @@
+<jboss-deployment-structure>
+	<deployment>
+		<dependencies>
+			<module name="org.springframework.spring">
+				<imports>
+					<include path="META-INF**" />
+					<include path="org**" />
+				</imports>
+			</module>
+		</dependencies>
+	</deployment>
+	<sub-deployment name="spring-context-namespace-web-0.0.1-SNAPSHOT.war">
+		<dependencies>
+			<module name="org.springframework.spring">
+				<imports>
+					<include path="META-INF**" />
+					<include path="org**" />
+				</imports>
+			</module>
+		</dependencies>
+	</sub-deployment>
+</jboss-deployment-structure>
