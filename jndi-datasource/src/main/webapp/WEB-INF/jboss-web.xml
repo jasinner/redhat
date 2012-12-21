@@ -14,6 +14,6 @@
        <resource-ref>
         <res-ref-name>jdbc/datasource</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
-        <jndi-name>java:jboss/datasources/MysqlDS</jndi-name>
+        <jndi-name>java:jboss/datasources/ExampleDS</jndi-name>
     </resource-ref>
 </jboss-web>
