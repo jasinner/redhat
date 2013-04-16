@@ -36,8 +36,25 @@ public class Producer{
 
 
     public static void main(String[] args){
-    	Producer producer = new Producer();
+    	Producer producer = null;
+    	if(args.length == 3){
+    		producer = new Producer(args[0], args[1], args[2]);
+    	}
+    	producer = new Producer();
     	producer.run();
+    }
+    
+    public Producer(){
+    	//default no arg constructor
+    }
+    
+    public Producer(String username, String password, String queueName){
+    	if(username == null || password == null || queueName == null){
+    		throw new IllegalArgumentException("Please pass username, password, and queueName");
+    	}
+    	user = username;
+    	this.password = password;
+    	this.subject = queueName;
     }
     
     public void run(){
