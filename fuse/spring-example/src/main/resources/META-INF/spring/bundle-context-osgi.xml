@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:osgi="http://www.springframework.org/schema/osgi"
+  xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+  xmlns:ctx="http://www.springframework.org/schema/context"
+  
+  xsi:schemaLocation="
+  http://www.springframework.org/schema/beans 
+  	http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context 
+	  http://www.springframework.org/schema/context/spring-context.xsd
+  http://www.springframework.org/schema/osgi 
+  	http://www.springframework.org/schema/osgi/spring-osgi.xsd
+  http://www.springframework.org/schema/osgi-compendium 
+  	http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd" >
+
+       
+  <osgix:cm-properties id="helloworld.cfg.with.defaults" persistent-id="helloworld">
+      <prop key="response">Right back at ya</prop>
+  </osgix:cm-properties>
+  
+  <!-- placeholder configurer -->
+  <ctx:property-placeholder properties-ref="helloworld.cfg.with.defaults" />
+  
+  <!-- 
+  	- Legacy configuration, used in FUSE ESB 4.0.x, but no longer valid as of 4.1.x
+  	- 
+  <osgix:property-placeholder persistent-id="helloworld">
+  	<osgix:default-properties>
+  		<prop key="response">Right back at ya</prop>		
+  	</osgix:default-properties>
+  </osgix:property-placeholder>
+   -->
+  
+  <osgi:service ref="helloWorld" interface="com.fusesource.training.osgi.helloworld.HelloWorld"/>
+  
+</beans>
