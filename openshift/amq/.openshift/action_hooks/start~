@@ -1,0 +1,19 @@
+#!/bin/bash
+# The logic to start up your application should be put in this
+# script. The application will work only if it binds to
+# $OPENSHIFT_INTERNAL_IP:8080
+set -x
+cd $OPENSHIFT_DATA_DIR
+
+if [ -d $OPENSHIFT_DATA_DIR/activemq-data ]
+then
+    exit 0
+else
+	mkdir $OPENSHIFT_DATA_DIR/activemq-data
+fi
+
+export ACTIVEMQ_DATA=$OPENSHIFT_DATA_DIR/activemq-data
+cd $OPENSHIFT_REPO_DIR/diy/activemq
+sed -ig 's/OPENSHIFT_DIY_IP/'$OPENSHIFT_DIY_IP'/g' conf/activemq.xml
+sed -ig 's/OPENSHIFT_DIY_IP/'$OPENSHIFT_DIY_IP'/g' conf/jetty.xml
+bin/activemq start
