@@ -1,3 +1,6 @@
 #!/bin/bash
+set -x
+export ACTIVEMQ_DATA="$OPENSHIFT_DATA_DIR/activemq-data"
+
 cd $OPENSHIFT_REPO_DIR/diy/activemq
 bin/activemq stop

@@ -191,7 +191,7 @@ fi
 # You only have to configure the first four settings if you run a ibm jvm, caused by the
 # fact that IBM's jvm does not support VirtualMachine.attach(PID)
 # (see also com.sun.management.jmxremote.port, .jmx.password.file and .jmx.access.file )
-#ACTIVEMQ_SUNJMX_CONTROL="--jmxurl service:jmx:rmi:///jndi/rmi://127.0.0.1:11099/jmxrmi --jmxuser controlRole --jmxpassword abcd1234"
+#ACTIVEMQ_SUNJMX_CONTROL="--jmxurl service:jmx:rmi:///jndi/rmi://jshepher.usersys.redhat.com:11099/jmxrmi"
 #ACTIVEMQ_SUNJMX_CONTROL=""
 
 # Specify the queue manager URL for using "browse" option of sysv initscript
@@ -561,40 +561,40 @@ invoke_console(){
 invoke_stop(){
     RET="1"
     if ( checkRunning );then
-       ACTIVEMQ_OPTS="$ACTIVEMQ_OPTS $ACTIVEMQ_SSL_OPTS"
-       COMMANDLINE_ARGS="$COMMANDLINE_ARGS $ACTIVEMQ_SUNJMX_CONTROL"
-       invokeJar "stop"
-       RET="$?"
+#       ACTIVEMQ_OPTS="$ACTIVEMQ_OPTS $ACTIVEMQ_SSL_OPTS"
+#       COMMANDLINE_ARGS="$COMMANDLINE_ARGS $ACTIVEMQ_SUNJMX_CONTROL"
+#       invokeJar "stop"
+#       RET="$?"
        PID=`cat $ACTIVEMQ_PIDFILE`
-       echo "INFO: Waiting at least $ACTIVEMQ_KILL_MAXSECONDS seconds for regular process termination of pid '$PID' : "
-       FOUND="0"
-       i=1
-       while [ $i != $ACTIVEMQ_KILL_MAXSECONDS ]; do
-
-         if [ ! checkStopRunning ];then
-            if [ ! checkRunning ]; then
-               echo " FINISHED"
-               FOUND="1"
-            fi
-            break
-         fi
-
-         if (checkRunning);then
-            sleep 1
-            printf  "."
-         else
-            echo " FINISHED"
-            FOUND="1"
-            break
-         fi
-         i=`expr $i + 1`
-       done
-       if [ "$FOUND" -ne "1" ];then
+#       echo "INFO: Waiting at least $ACTIVEMQ_KILL_MAXSECONDS seconds for regular process termination of pid '$PID' : "
+#       FOUND="0"
+#       i=1
+#       while [ $i != $ACTIVEMQ_KILL_MAXSECONDS ]; do
+#
+#         if [ ! checkStopRunning ];then
+#           if [ ! checkRunning ]; then
+#             echo " FINISHED"
+#             FOUND="1"
+#            fi
+#            break
+#         fi
+#
+#         if (checkRunning);then
+#            sleep 1
+#            printf  "."
+#         else
+#            echo " FINISHED"
+#            FOUND="1"
+#            break
+#         fi
+#         i=`expr $i + 1`
+#       done
+#       if [ "$FOUND" -ne "1" ];then
          echo
          echo "INFO: Regular shutdown not successful,  sending SIGKILL to process with pid '$PID'"
          kill -KILL $PID
          RET="1"
-       fi
+#       fi
     elif [ -f "$ACTIVEMQ_PIDFILE" ];then
        echo "ERROR: No or outdated process id in '$ACTIVEMQ_PIDFILE'"
        echo

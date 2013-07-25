@@ -5,14 +5,14 @@
 set -x
 cd $OPENSHIFT_DATA_DIR
 
-if [ -d $OPENSHIFT_DATA_DIR/activemq-data ]
+if [ ! -d $OPENSHIFT_DATA_DIR/activemq-data ]
 then
-    exit 0
-else
 	mkdir $OPENSHIFT_DATA_DIR/activemq-data
 fi
 
 export ACTIVEMQ_DATA=$OPENSHIFT_DATA_DIR/activemq-data
+export ACTIVEMQ_OPTS="-Dlog.dir=$ACTIVEMQ_DATA"
+
 cd $OPENSHIFT_REPO_DIR/diy/activemq
 sed -ig 's/OPENSHIFT_DIY_IP/'$OPENSHIFT_APP_DNS'/g' conf/activemq.xml
 sed -ig 's/OPENSHIFT_DIY_IP/'$OPENSHIFT_APP_DNS'/g' conf/jetty.xml

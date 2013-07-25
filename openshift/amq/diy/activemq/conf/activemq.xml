@@ -77,7 +77,7 @@
             http://activemq.apache.org/jmx.html
         -->
         <managementContext>
-            <managementContext createConnector="false"/>
+            <managementContext createConnector="true"/>
         </managementContext>
 
         <!--
