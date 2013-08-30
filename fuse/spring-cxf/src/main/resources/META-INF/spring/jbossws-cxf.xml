@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:osgi="http://www.springframework.org/schema/osgi" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:cxf="http://cxf.apache.org/core"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
+http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+
+	<jaxws:endpoint id="hello" address="http://localhost:9090/hello"
+		implementor="com.redhat.gss.example.ws.HelloWS">
+		<jaxws:properties>
+			<entry key="soap.env.ns.map">
+				<map>
+					<entry key="myPrefix" value="http://jaxws.gss.redhat.com/" />
+				</map>
+			</entry>
+		</jaxws:properties>
+		<jaxws:features>
+			<cxf:logging />
+		</jaxws:features>
+	</jaxws:endpoint>
+</beans>
