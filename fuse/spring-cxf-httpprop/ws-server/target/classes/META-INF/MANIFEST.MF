@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Private-Package: com.fusesource.demo.customer,com.fusesource.demo.wsdl
+ .customerservice,com.redhat.gss.example.ws,xsd
+Built-By: jshepher
+Tool: Bnd-0.0.238
+Bundle-Name: ws-server
+Created-By: Apache Maven Bundle Plugin
+DynamicImport-Package: org.apache.cxf.*,							org.springframework.bea
+ ns.*
+Bundle-Version: 1.0
+Build-Jdk: 1.7.0_25
+Bnd-LastModified: 1380259226861
+Bundle-ManifestVersion: 2
+Import-Package: META-INF.cxf,META-INF.cxf.osgi,javax.jws,javax.xml.bin
+ d,javax.xml.bind.annotation,javax.xml.namespace,javax.xml.ws,org.slf4
+ j;version="1.4"
+Bundle-SymbolicName: com.redhat.gss.example.fuse.ws.ws-server
+
