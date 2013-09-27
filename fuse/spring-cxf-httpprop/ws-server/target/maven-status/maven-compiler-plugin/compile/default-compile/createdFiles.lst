@@ -1,14 +1,1 @@
-com/fusesource/demo/customer/package-info.class
-com/fusesource/demo/wsdl/customerservice/CustomerService.class
 com/redhat/gss/example/ws/CustomerServiceWS.class
-com/fusesource/demo/wsdl/customerservice/UpdateCustomer.class
-com/fusesource/demo/wsdl/customerservice/UpdateCustomerResponse.class
-com/fusesource/demo/customer/Customer.class
-com/fusesource/demo/wsdl/customerservice/ObjectFactory.class
-com/fusesource/demo/wsdl/customerservice/CustomerService_Service.class
-com/fusesource/demo/customer/ObjectFactory.class
-com/fusesource/demo/wsdl/customerservice/GetCustomerStatus.class
-com/fusesource/demo/wsdl/customerservice/GetCustomerStatusResponse.class
-com/fusesource/demo/wsdl/customerservice/package-info.class
-com/fusesource/demo/wsdl/customerservice/LookupCustomerResponse.class
-com/fusesource/demo/wsdl/customerservice/LookupCustomer.class
