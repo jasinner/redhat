@@ -1,1 +1,2 @@
-*/target
+ws-server/target/*
+ws-gen/target/*
