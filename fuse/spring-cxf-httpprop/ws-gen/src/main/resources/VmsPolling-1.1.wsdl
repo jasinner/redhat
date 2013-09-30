@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="VmsRequestWsService" targetNamespace="http://vms.gatewaySysExt.scf.myn.dcns.fr/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://vms.gatewaySysExt.scf.myn.dcns.fr/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://vms.gatewaySysExt.scf.myn.dcns.fr/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="submit" type="tns:submit"/>
+      <xs:element name="submitResponse" type="tns:submitResponse"/>
+      <xs:complexType name="submit">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="arg0" type="tns:vmsPos"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="vmsPos">
+        <xs:sequence/>
+        <xs:attribute name="DA" type="xs:date" use="required"/>
+        <xs:attribute name="TI" type="xs:string" use="required"/>
+        <xs:attribute name="LT" type="xs:decimal" use="required"/>
+        <xs:attribute name="LG" type="xs:decimal" use="required"/>
+        <xs:attribute name="SP" type="xs:nonNegativeInteger" use="required"/>
+        <xs:attribute name="CO" type="xs:int" use="required"/>
+        <xs:attribute name="NA" type="xs:string" use="required"/>
+        <xs:attribute name="XR" type="xs:string" use="required"/>
+        <xs:attribute name="RC" type="xs:string"/>
+        <xs:attribute name="IR" type="xs:string"/>
+        <xs:attribute name="PA" type="xs:string" use="required"/>
+      </xs:complexType>
+      <xs:complexType name="submitResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:messageRetour"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType final="extension restriction" name="messageRetour">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="messageErreur" type="xs:string"/>
+          <xs:element minOccurs="0" name="retourType" type="tns:retourType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="retourType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ERREUR_REQUETE"/>
+          <xs:enumeration value="SUCCES_REQUETE"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="submitResponse">
+    <wsdl:part name="parameters" element="tns:submitResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="submit">
+    <wsdl:part name="parameters" element="tns:submit">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="VmsRequestWsPortType">
+    <wsdl:operation name="submit">
+      <wsdl:input name="submit" message="tns:submit">
+    </wsdl:input>
+      <wsdl:output name="submitResponse" message="tns:submitResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="VmsRequestWsServiceSoapBinding" type="tns:VmsRequestWsPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="submit">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="submit">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="submitResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="VmsRequestWsService">
+    <wsdl:port name="VmsRequestWsPort" binding="tns:VmsRequestWsServiceSoapBinding">
+      <soap:address location="http://pc-petat:8088/mockVmsRequestWsServiceSoapBinding"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
