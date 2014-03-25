@@ -50,7 +50,7 @@
                   id="eip-example-context">
 
 				<route id="test_port_route">
-					<from uri="jetty:http://0.0.0.0:8182/hello?httpBindingRef=mybinding" />
+					<from uri="http://0.0.0.0:8182/hello" />
 					<setExchangePattern pattern="InOut"/>
 					<setBody>
 						<constant>hello</constant>
