@@ -1,4 +1,4 @@
-iredhat
+Red Hat
 ======
 This repository is for case work for Red Hat Middleware Support Global Support Services clients.
 
