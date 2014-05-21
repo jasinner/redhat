@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure>
+    <deployment>
+        <!-- include resource adapter if we want to do JNDI lookup -->
+        <dependencies>
+            <module name="deployment.activemq-rar-5.9.0.rar" services="import">
+                <imports>
+                    <exclude path="org/springframework/**"/>
+                </imports>
+            </module>
+        </dependencies>
+        <!-- Exclude JBoss logging libraries so the application config is used -->
+        <exclusions>
+            <module name="org.apache.log4j"/>
+            <module name="org.slf4j"/>
+            <module name="org.slf4j.impl"/>
+        </exclusions>
+    </deployment>
+</jboss-deployment-structure>
