@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//LOGGER" "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- Appenders -->
+    <appender name="IF_LOGFILE" class="org.apache.log4j.RollingFileAppender">
+            <param name="File" value="${jboss.server.log.dir}/camel-jms-eap-producer.log"/>
+            <param name="Append" value="true"/>
+            <param name="MaxFileSize" value="30000KB"/>
+            <layout class="org.apache.log4j.PatternLayout">
+                    <param name="ConversionPattern" value="%d{DATE} %-5p %t %c{1}: %m%n"/>
+            </layout>
+    </appender>
+
+    <!-- Application -->
+    <logger name="com.redhat.gss.example">
+        <level value="debug"/>
+    </logger>
+
+    <!-- 3rdparty Loggers -->
+    <logger name="org.springframework">
+        <level value="warn"/>
+    </logger>
+
+    <logger name="org.springframework.jms.core.JmsTemplate">
+        <level value="debug"/>
+    </logger>
+
+    <logger name="org.apache.camel">
+        <level value="info"/>
+    </logger>
+
+    <!-- Root Logger -->
+    <root>
+        <priority value="info"/>
+        <appender-ref ref="IF_LOGFILE"/>
+    </root>
+
+</log4j:configuration>

@@ -18,6 +18,8 @@
     <bean id="jms" class="org.apache.camel.component.jms.JmsComponent">
         <property name="connectionFactory" ref="connectionFactory" />
     </bean>
+    
+    <bean id="loggingBean" class="com.redhat.gss.example.CustomerLogger"/>
 
      <jee:jndi-lookup id="connectionFactory" jndi-name="java:jboss/ConnectionFactory" />
 

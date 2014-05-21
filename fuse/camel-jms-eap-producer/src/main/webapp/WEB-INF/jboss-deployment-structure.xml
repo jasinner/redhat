@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+  <deployment>
+    <exclusions>
+      <module name="org.apache.log4j"/>
+      <module name="org.apache.commons.logging"/>
+      <module name="org.slf4j"/>
+    </exclusions>
+    <dependencies>
+      <module name="deployment.activemq-rar-5.9.0.rar" services="import">
+        <imports>
+          <exclude path="org/springframework/"/>
+          <exclude path="org/apache/log4j"/>
+          <exclude path="org/apache/log4j/"/>
+          <exclude path="org/slf4j"/>
+          <exclude path="org/slf4j/"/>
+          <exclude path="org/apache/commons/logging"/>
+          <exclude path="org/apache/commons/logging/"/>
+        </imports>
+      </module>
+    </dependencies>
+  </deployment>
+</jboss-deployment-structure>
