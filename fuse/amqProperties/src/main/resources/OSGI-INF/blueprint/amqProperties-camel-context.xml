@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (C) Red Hat, Inc.
+  ~ http://www.redhat.com
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:amq="http://activemq.apache.org/schema/core"
+           xmlns:camel="http://camel.apache.org/schema/blueprint"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="
+            http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+            http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
+            http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd
+            http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd
+           ">
+
+    <!-- OSGI blueprint property placeholder -->
+    <cm:property-placeholder id="myblueprint.placeholder" persistent-id="com.redhat.gss.example.fuse.amq.properties">
+        <!-- list some properties for this test -->
+        <cm:default-properties>
+            <cm:property name="fromQueue" value="event"/>
+            <cm:property name="rolloverCount" value="50"/>
+        </cm:default-properties>
+    </cm:property-placeholder>
+
+	<!-- broker name must match that defined in org.fusesource.mq.fabric.server-default.cfg -->
+    <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+    	<property name="configuration" ref="local-config" />
+    </bean>
+    
+    <bean id="myCounter" class="com.redhat.gss.example.fuse.amq.properties.CamelCounter">
+    	<argument value="${rolloverCount}"/>
+    </bean>
+  
+    <bean id="local-config"
+          class="org.apache.activemq.camel.component.ActiveMQConfiguration">
+        <property name="brokerURL" value="vm://amq?create=false" />
+        <property name="userName" value="admin" />
+        <property name="password" value="admin" />
+    </bean>
+
+    <camelContext trace="true" id="amqProperties-camel-context" xmlns="http://camel.apache.org/schema/blueprint">
+    <route id="amqProperties-route">
+        <from uri="activemq:topic:{{fromQueue}}"/>
+        <to uri="bean:myCounter?method=increment"/>
+        <choice>
+        	<when>
+        		<simple>${bean:myCounter?method=rollover} == true</simple>
+        		<log  message="rollover "/>
+        	</when>
+        	<otherwise>
+        		<log message="count: ${body}"/>
+        	</otherwise>
+        </choice>
+		
+    </route>
+</camelContext>
+
+</blueprint>
