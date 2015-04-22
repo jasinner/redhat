@@ -8,28 +8,28 @@
     <parent>
         <groupId>com.redhat.gss.example.osgi</groupId>
         <artifactId>parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <artifactId>hello-client</artifactId>
     <packaging>bundle</packaging>
-    <name>Hello Boston Consumer Bundle</name>
+    <name>Hello Consumer Bundle</name>
     <description>Sample Consumer OSGi Bundle</description>
 
     <dependencies>
         <dependency>
             <groupId>com.redhat.gss.example.osgi</groupId>
             <artifactId>time</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.redhat.gss.example.osgi</groupId>
             <artifactId>hello-boston</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.redhat.gss.example.osgi</groupId>
             <artifactId>hello-paris</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 
