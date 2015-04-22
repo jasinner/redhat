@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <reference id="helloBoston"
+        interface="com.redhat.gss.example.osgi.hello.boston.HelloBoston"/>
+
+    <reference id="helloParis"
+        interface="com.redhat.gss.example.osgi.hello.paris.HelloParis"/>
+
+    <bean id="client"
+          class="com.redhat.gss.example.osgi.hello.consumer.ConsumeHello"
+          init-method="init">
+        <property name="helloBoston" ref="helloBoston"/>
+        <property name="helloParis" ref="helloParis"/>
+    </bean>
+
+</blueprint>

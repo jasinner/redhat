@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <bean id="hello-paris-impl"
+        class="com.redhat.gss.example.osgi.hello.paris.impl.HelloParisImpl"/>
+
+    <service ref="hello-paris-impl"
+        interface="com.redhat.gss.example.osgi.hello.paris.HelloParis"/>
+
+</blueprint>
